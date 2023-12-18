@@ -1,0 +1,6 @@
++This is a clean lib to tell the program something to deleate+
+cl C:/windows/Temp
+cl 
+cl  
+regdel none
+
