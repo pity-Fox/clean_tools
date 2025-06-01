@@ -1,0 +1,72 @@
+[15:40:35] 日志已清理
+[15:40:39] 规则已删除: none
+[15:40:50] 对话框没有返回结果
+[15:43:07] 规则已保存到: c:\Users\43426\Desktop\project\git\clean_tools\rule\none
+[15:43:11] 对话框没有返回结果
+[15:43:13] 开始执行清理规则: none
+[15:43:13] 清理完成
+[15:43:28] 对话框没有返回结果
+[15:43:45] 规则已更新: c:\Users\43426\Desktop\project\git\clean_tools\rule\none
+[15:43:50] 开始执行清理规则: none
+[15:43:50] 路径不存在: %USERPROFILE%\Documents\Tencent Files\*\Image
+[15:43:50] 路径不存在: %USERPROFILE%\Documents\Tencent Files\*\Video
+[15:43:50] 路径不存在: %USERPROFILE%\AppData\Roaming\Tencent\QQ\Temp
+[15:43:50] 路径不存在: %USERPROFILE%\Documents\WeChat Files\*\FileStorage\Image
+[15:43:50] 路径不存在: %USERPROFILE%\Documents\WeChat Files\*\FileStorage\Video
+[15:43:50] 路径不存在: %USERPROFILE%\Documents\WeChat Files\*\FileStorage\Cache
+[15:43:50] 路径不存在: %LOCALAPPDATA%\Google\Chrome\User Data\Default\Cache
+[15:43:50] 路径不存在: %LOCALAPPDATA%\Microsoft\Edge\User Data\Default\Cache
+[15:43:50] 路径不存在: %APPDATA%\Mozilla\Firefox\Profiles\*.default-release\cache2
+[15:43:50] 路径不存在: %TEMP%
+[15:43:50] 路径不存在: %WINDIR%\Temp
+[15:43:50] 执行命令: cleanmgr /sagerun:1
+[15:43:59] 命令执行成功
+[15:43:59] 路径不存在: %APPDATA%\Adobe\Common\Media Cache
+[15:43:59] 路径不存在: %LOCALAPPDATA%\Microsoft\Windows\INetCache
+[15:43:59] 路径不存在: %LOCALAPPDATA%\Microsoft\Windows\History
+[15:43:59] 清理完成
+[15:44:40] 规则已保存到: c:\Users\43426\Desktop\project\git\clean_tools\rule\fox
+[15:47:16] 规则已删除: fox
+[15:50:08] 规则已保存到: c:\Users\43426\Desktop\project\git\clean_tools\rule\fox
+[15:53:01] 规则已删除: fox
+[15:53:10] 规则已保存到: c:\Users\43426\Desktop\project\git\clean_tools\rule\fox
+[15:55:54] 开始执行清理规则: fox
+[15:55:54] 路径不存在: %USERPROFILE%\Documents\Tencent Files\*\Image
+[15:55:54] 路径不存在: %USERPROFILE%\Documents\Tencent Files\*\Video
+[15:55:54] 路径不存在: %USERPROFILE%\AppData\Roaming\Tencent\QQ\Temp
+[15:55:54] 路径不存在: %USERPROFILE%\Documents\WeChat Files\*\FileStorage\Image
+[15:55:54] 路径不存在: %USERPROFILE%\Documents\WeChat Files\*\FileStorage\Video
+[15:55:54] 路径不存在: %USERPROFILE%\Documents\WeChat Files\*\FileStorage\Cache
+[15:55:54] 路径不存在: %LOCALAPPDATA%\Google\Chrome\User Data\Default\Cache
+[15:55:54] 路径不存在: %LOCALAPPDATA%\Microsoft\Edge\User Data\Default\Cache
+[15:55:54] 路径不存在: %APPDATA%\Mozilla\Firefox\Profiles\*.default-release\cache2
+[15:55:54] 路径不存在: %TEMP%
+[15:55:54] 路径不存在: %WINDIR%\Temp
+[15:55:54] 执行命令: cleanmgr /sagerun:1
+[15:55:59] 命令执行成功
+[15:55:59] 路径不存在: %APPDATA%\Adobe\Common\Media Cache
+[15:55:59] 路径不存在: %LOCALAPPDATA%\Microsoft\Windows\INetCache
+[15:55:59] 路径不存在: %LOCALAPPDATA%\Microsoft\Windows\History
+[15:55:59] 清理完成
+[16:13:31] 开始执行清理规则: fox
+[16:13:31] 路径不存在: %USERPROFILE%\Documents\Tencent Files\*\Image
+[16:13:31] 路径不存在: %USERPROFILE%\Documents\Tencent Files\*\ideo
+[16:13:31] 路径不存在: %USERPROFILE%\AppData\Roaming\Tencent\QQ\Temp
+[16:13:31] 路径不存在: %USERPROFILE%\Documents\WeChat Files\*\FileStorage\Image
+[16:13:31] 路径不存在: %USERPROFILE%\Documents\WeChat Files\*\FileStorage\Video
+[16:13:31] 路径不存在: %USERPROFILE%\Documents\WeChat Files\*\FileStorage\Cache
+[16:13:31] 路径不存在: %LOCALAPPDATA%\Google\Chrome\User Data\Default\Cache
+[16:13:31] 路径不存在: %LOCALAPPDATA%\Microsoft\Edge\User Data\Default\Cache
+[16:13:31] 路径不存在: %APPDATA%\Mozilla\Firefox\Profiles\*.default-release\cache2
+[16:13:31] 路径不存在: %TEMP%
+[16:13:31] 路径不存在: %WINDIR%\Temp
+[16:13:31] 执行命令: cleanmgr /sagerun:1
+[16:13:37] 命令执行成功
+[16:13:37] 路径不存在: %APPDATA%\Adobe\Common\Media Cache
+[16:13:37] 路径不存在: %LOCALAPPDATA%\Microsoft\Windows\INetCache
+[16:13:37] 路径不存在: %LOCALAPPDATA%\Microsoft\Windows\History
+[16:13:37] 清理完成
+[安全警告] 安全警告: 无法验证加密文件 fox 的完整性 - 作者名已被掩码，禁止执行清理操作
+[安全提示] 规则 fox 无法验证完整性，已加载但禁止执行
+[16:17:44] 对话框没有返回结果
+[16:17:44] [安全阻止] 尝试执行无法验证的规则: fox
