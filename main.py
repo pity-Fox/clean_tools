@@ -5,6 +5,7 @@ import tkinter as tk
 from tkinter import ttk, messagebox, filedialog, scrolledtext
 import os
 import sys
+import ctypes
 from pathlib import Path
 
 # 导入自定义模块
@@ -15,12 +16,90 @@ except ImportError as e:
     print(f"导入模块失败: {e}")
     sys.exit(1)
 
+def is_admin():
+    """检查是否具有管理员权限"""
+    try:
+        return ctypes.windll.shell32.IsUserAnAdmin()
+    except:
+        return False
+
+def run_as_admin():
+    """以管理员权限重新启动程序"""
+    try:
+        if sys.argv[-1] != 'asadmin':
+            script = os.path.abspath(sys.argv[0])
+            params = ' '.join([script] + sys.argv[1:] + ['asadmin'])
+            ctypes.windll.shell32.ShellExecuteW(
+                None, "runas", sys.executable, params, None, 1
+            )
+            return True
+    except Exception as e:
+        print(f"申请管理员权限失败: {e}")
+        return False
+    return False
+
+def request_admin_privileges():
+    """申请管理员权限"""
+    if not is_admin():
+        # 显示权限申请对话框
+        root = tk.Tk()
+        root.withdraw()  # 隐藏主窗口
+        
+        result = messagebox.askyesno(
+            "权限申请",
+            "Clean Tools 需要管理员权限来执行系统清理操作。\n\n"
+            "是否以管理员权限重新启动程序？\n\n"
+            "注意：某些清理功能需要管理员权限才能正常工作。",
+            icon="question"
+        )
+        
+        root.destroy()
+        
+        if result:
+            # 用户同意，尝试以管理员权限重启
+            if run_as_admin():
+                sys.exit(0)  # 退出当前进程
+            else:
+                # 重启失败，询问是否继续
+                root = tk.Tk()
+                root.withdraw()
+                continue_result = messagebox.askyesno(
+                    "权限申请失败",
+                    "无法获取管理员权限。\n\n"
+                    "是否继续以普通用户权限运行？\n\n"
+                    "警告：某些功能可能无法正常工作。",
+                    icon="warning"
+                )
+                root.destroy()
+                
+                if not continue_result:
+                    sys.exit(1)
+        else:
+            # 用户拒绝，询问是否继续
+            root = tk.Tk()
+            root.withdraw()
+            continue_result = messagebox.askyesno(
+                "权限确认",
+                "您选择不使用管理员权限。\n\n"
+                "是否继续以普通用户权限运行？\n\n"
+                "警告：某些清理功能可能无法正常工作。",
+                icon="warning"
+            )
+            root.destroy()
+            
+            if not continue_result:
+                sys.exit(1)
+    
+    return is_admin()
+
 class CleanToolsGUI:
     def __init__(self, root):
         self.root = root
-        self.root.title("Clean Tools - 安全清理工具")
         self.root.geometry("950x750")
         self.root.resizable(True, True)
+        
+        # 检查管理员权限状态
+        self.is_admin = is_admin()
         
         # 获取程序路径
         self.program_path = Path(os.path.dirname(os.path.abspath(sys.argv[0])))
@@ -46,6 +125,15 @@ class CleanToolsGUI:
         title_label = ttk.Label(title_frame, text="Clean Tools", 
                                font=("Arial", 24, "bold"))
         title_label.pack(side="left")
+        
+        # 权限状态显示
+        if self.is_admin:
+            status_label = ttk.Label(title_frame, text="🛡️ 管理员权限", 
+                                   font=("Arial", 10), foreground="green")
+        else:
+            status_label = ttk.Label(title_frame, text="⚠️ 普通用户权限", 
+                                   font=("Arial", 10), foreground="orange")
+        status_label.pack(side="right")
         
         # 设置按钮
         settings_btn = ttk.Button(title_frame, text="设置", 
@@ -329,13 +417,19 @@ class CleanToolsGUI:
                     info_text += "\n完整性: ✅ 验证通过"
                 elif integrity_status == 'tampered':
                     info_text += "\n完整性: ❌ 文件已被篡改"
+                    info_text += "\n执行状态: 🚫 禁止执行"
                     info_text += f"\n详情: {integrity_message}"
-                elif integrity_status == 'unknown':
+                elif integrity_status == 'cannot_verify':
                     info_text += "\n完整性: ⚠️ 无法验证"
+                    info_text += "\n执行状态: 🚫 禁止执行"
+                    info_text += f"\n详情: {integrity_message}"
+                elif integrity_status == 'error':
+                    info_text += "\n完整性: ❌ 验证出错"
+                    info_text += "\n执行状态: 🚫 禁止执行"
                     info_text += f"\n详情: {integrity_message}"
                 else:
-                    info_text += "\n完整性: ❌ 验证出错"
-                    info_text += f"\n详情: {integrity_message}"
+                    info_text += "\n完整性: ⚠️ 状态未知"
+                    info_text += "\n执行状态: 🚫 禁止执行"
             else:
                 info_text += "\n\n=== 安全状态 ==="
                 info_text += "\n文件类型: 📄 普通文件"
@@ -343,7 +437,7 @@ class CleanToolsGUI:
             
             self.info_text.insert(1.0, info_text)
         
-        self.info_text.config(state="disabled")
+            self.info_text.config(state="disabled")
     
     def load_rules(self):
         """加载规则列表"""
@@ -555,6 +649,9 @@ def check_file_integrity():
 
 def main():
     """主函数"""
+    # 申请管理员权限
+    admin_status = request_admin_privileges()
+    
     # 检查文件完整性
     if not check_file_integrity():
         sys.exit(1)
@@ -575,6 +672,13 @@ def main():
     # 启动主程序
     root = tk.Tk()
     app = CleanToolsGUI(root)
+    
+    # 在标题栏显示权限状态
+    if admin_status:
+        root.title("Clean Tools - 安全清理工具 [管理员权限]")
+    else:
+        root.title("Clean Tools - 安全清理工具 [普通用户权限]")
+    
     root.mainloop()
 
 if __name__ == "__main__":
