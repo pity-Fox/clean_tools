@@ -75,3 +75,64 @@
 [16:36:48] [安全阻止] 尝试执行无法验证的规则: fox
 [16:36:52] 规则已删除: fox
 [16:36:54] 规则已删除: none
+[16:47:20] 规则已保存到: C:\Users\43426\Desktop\project\git\clean_tools\rule\常规清理
+[16:47:46] [安全通过] 开始执行已验证的规则: 常规清理
+[16:47:46] 开始执行清理规则: 常规清理
+[16:47:46] 路径不存在: %USERPROFILE%\Documents\Tencent Files
+[16:47:46] 路径不存在: %APPDATA%\Tencent
+[16:47:46] 路径不存在: %LOCALAPPDATA%\Tencent
+[16:47:46] 路径不存在: %ProgramFiles(x86)%\Tencent\QQ\Temp
+[16:47:46] 路径不存在: %ProgramFiles%\Tencent\WeChat\Cache
+[16:47:46] 路径不存在: %USERPROFILE%\AppData\Local\Alibaba
+[16:47:46] 路径不存在: %APPDATA%\Alibaba
+[16:47:46] 路径不存在: %LOCALAPPDATA%\Alibaba\DingTalk\Cache
+[16:47:46] 路径不存在: %LOCALAPPDATA%\Baidu
+[16:47:46] 路径不存在: %APPDATA%\Baidu
+[16:47:46] 路径不存在: %ProgramFiles(x86)%\Baidu\BaiduNetdisk\users\*\Cache
+[16:47:46] 路径不存在: %LOCALAPPDATA%\ByteDance
+[16:47:46] 路径不存在: %APPDATA%\Jiangsu\Douyin\Cache
+[16:47:46] 路径不存在: %USERPROFILE%\Documents\Huoshan
+[16:47:46] 路径不存在: %APPDATA%\360safe
+[16:47:46] 路径不存在: %LOCALAPPDATA%\360safe
+[16:47:46] 路径不存在: %ProgramFiles(x86)%\360\360Safe\Temp
+[16:47:46] 路径不存在: %APPDATA%\kingsoft
+[16:47:46] 路径不存在: %LOCALAPPDATA%\Kingsoft
+[16:47:46] 路径不存在: %ProgramFiles(x86)%\WPS Office\10\data
+[16:47:46] 路径不存在: %LOCALAPPDATA%\Google\Chrome\User Data\*\Cache
+[16:47:46] 路径不存在: %LOCALAPPDATA%\Microsoft\Edge\User Data\*\Cache
+[16:47:46] 路径不存在: %APPDATA%\Opera Software\Opera Stable\Cache
+[16:47:46] 路径不存在: %APPDATA%\Mozilla\Firefox\Profiles\*\cache2
+[16:47:46] 路径不存在: %APPDATA%\SogouPY
+[16:47:46] 路径不存在: %APPDATA%\SogouPY.users
+[16:47:46] 路径不存在: %APPDATA%\Baidu\BaiduPinyin
+[16:47:46] 路径不存在: %APPDATA%\Iflytek\SP6
+[16:47:46] 路径不存在: %ProgramData%\Steam\appcache
+[16:47:46] 路径不存在: %ProgramFiles(x86)%\WeGame\apps
+[16:47:46] 路径不存在: %APPDATA%\Tencent\英雄联盟\Cache
+[16:47:46] 路径不存在: %APPDATA%\KuGou8
+[16:47:46] 路径不存在: %APPDATA%\Netease\CloudMusic\Cache
+[16:47:46] 路径不存在: %LOCALAPPDATA%\IQIYI Video
+[16:47:46] 路径不存在: %APPDATA%\Tencent\QQLive\Temp
+[16:47:46] 路径不存在: %APPDATA%\Thunder Network
+[16:47:46] 路径不存在: %ProgramFiles(x86)%\Thunder Network\Thunder\Profiles\Temp
+[16:47:46] 路径不存在: %APPDATA%\Baidu\BaiduNetdisk
+[16:47:46] 路径不存在: %APPDATA%\Microsoft\Office\16.0\OfficeFileCache
+[16:47:46] 路径不存在: %APPDATA%\kingsoft\office6\temp
+[16:47:46] 路径不存在: %APPDATA%\Foxit Software\Foxit PDF Editor\Temp
+[16:47:46] 路径不存在: %USERPROFILE%\.android\cache
+[16:47:46] 路径不存在: %APPDATA%\JetBrains\*\cache
+[16:47:46] 路径不存在: %APPDATA%\Microsoft\VisualStudio\16.0_*\ComponentModelCache
+[16:47:46] 路径不存在: %ProgramData%\360safe
+[16:47:46] 路径不存在: %ProgramData%\BaiduSD
+[16:47:46] 路径不存在: %ProgramData%\Huorong\Sysdiag\Cache
+[16:47:46] 路径不存在: %APPDATA%\Baidu\BaiduPlayer
+[16:47:46] 路径不存在: %APPDATA%\Youku\Youku Client
+[16:47:46] 路径不存在: %APPDATA%\SogouExplorer
+[16:47:46] 路径不存在: %APPDATA%\Bilibili\Download
+[16:47:46] 执行命令: cleanmgr /sagerun:1
+[16:47:52] 命令执行成功
+[16:47:52] 执行命令: Dism /online /Cleanup-Image /StartComponentCleanup
+[16:47:52] 命令执行失败，返回码: 740
+[16:47:52] 执行命令: rd /s /q %TEMP%
+[16:47:55] 命令执行成功
+[16:47:55] 清理完成

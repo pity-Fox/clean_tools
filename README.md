@@ -1,5 +1,7 @@
 # clean_tools
-a big project for me  
-I haven't finish it.  
-
-
+出正式版啦😀😀😀
+##1.0 GUI版本
+1，支持加密，校验文件完整性
+2，能导入规则
+3，我觉得这个图标挺好看的
+4，能够创建并且编辑规则

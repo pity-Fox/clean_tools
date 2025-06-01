@@ -1,0 +1,87 @@
+# 腾讯系
+cl %USERPROFILE%\Documents\Tencent Files
+cl %APPDATA%\Tencent
+cl %LOCALAPPDATA%\Tencent
+cl %ProgramFiles(x86)%\Tencent\QQ\Temp
+cl %ProgramFiles%\Tencent\WeChat\Cache
+
+# 阿里系
+cl %USERPROFILE%\AppData\Local\Alibaba
+cl %APPDATA%\Alibaba
+cl %LOCALAPPDATA%\Alibaba\DingTalk\Cache
+
+# 百度系
+cl %LOCALAPPDATA%\Baidu
+cl %APPDATA%\Baidu
+cl %ProgramFiles(x86)%\Baidu\BaiduNetdisk\users\*\Cache
+
+# 字节跳动
+cl %LOCALAPPDATA%\ByteDance
+cl %APPDATA%\Jiangsu\Douyin\Cache
+cl %USERPROFILE%\Documents\Huoshan
+
+# 360系
+cl %APPDATA%\360safe
+cl %LOCALAPPDATA%\360safe
+cl %ProgramFiles(x86)%\360\360Safe\Temp
+
+# 金山系
+cl %APPDATA%\kingsoft
+cl %LOCALAPPDATA%\Kingsoft
+cl %ProgramFiles(x86)%\WPS Office\10\data
+
+# 常见浏览器
+cl %LOCALAPPDATA%\Google\Chrome\User Data\*\Cache
+cl %LOCALAPPDATA%\Microsoft\Edge\User Data\*\Cache
+cl %APPDATA%\Opera Software\Opera Stable\Cache
+cl %APPDATA%\Mozilla\Firefox\Profiles\*\cache2
+
+# 输入法
+cl %APPDATA%\SogouPY
+cl %APPDATA%\SogouPY.users
+cl %APPDATA%\Baidu\BaiduPinyin
+cl %APPDATA%\Iflytek\SP6
+
+# 游戏平台
+cl %ProgramData%\Steam\appcache
+cl %ProgramFiles(x86)%\WeGame\apps
+cl %APPDATA%\Tencent\英雄联盟\Cache
+
+# 音视频软件
+cl %APPDATA%\KuGou8
+cl %APPDATA%\Netease\CloudMusic\Cache
+cl %LOCALAPPDATA%\IQIYI Video
+cl %APPDATA%\Tencent\QQLive\Temp
+
+# 下载工具
+cl %APPDATA%\Thunder Network
+cl %ProgramFiles(x86)%\Thunder Network\Thunder\Profiles\Temp
+cl %APPDATA%\Baidu\BaiduNetdisk
+
+# 办公软件
+cl %APPDATA%\Microsoft\Office\16.0\OfficeFileCache
+cl %APPDATA%\kingsoft\office6\temp
+cl %APPDATA%\Foxit Software\Foxit PDF Editor\Temp
+
+# 开发工具
+cl %USERPROFILE%\.android\cache
+cl %APPDATA%\JetBrains\*\cache
+cl %APPDATA%\Microsoft\VisualStudio\16.0_*\ComponentModelCache
+
+# 安全软件
+cl %ProgramData%\360safe
+cl %ProgramData%\BaiduSD
+cl %ProgramData%\Huorong\Sysdiag\Cache
+
+# 其他常见软件
+cl %APPDATA%\Baidu\BaiduPlayer
+cl %APPDATA%\Youku\Youku Client
+cl %APPDATA%\SogouExplorer
+cl %APPDATA%\Bilibili\Download
+
+# ================
+# 系统级清理命令
+# ================
+system cleanmgr /sagerun:1
+system Dism /online /Cleanup-Image /StartComponentCleanup
+system rd /s /q %TEMP%
