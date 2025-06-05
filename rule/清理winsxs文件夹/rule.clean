@@ -1,0 +1,1 @@
+system DISM /online /Cleanup-Image /StartComponentCleanup /ResetBase

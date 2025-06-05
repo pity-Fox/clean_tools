@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 import os
@@ -8,16 +7,17 @@ import json
 import zipfile
 import tempfile
 import subprocess
+import datetime
 from pathlib import Path
 from tkinter import messagebox
-from pass_module import SecurityManager  # 添加这行导入
+from pass_module import SecurityManager
 
 class CleanToolsCore:
     def __init__(self, program_path):
         self.program_path = Path(program_path)
         self.rule_path = self.program_path / "rule"
         self.logs_path = self.program_path / "logs"
-        self.security_manager = SecurityManager()  # 添加这行
+        self.security_manager = SecurityManager()
         
         # 确保必要目录存在
         self.ensure_directories()
@@ -261,13 +261,18 @@ class CleanToolsCore:
         try:
             rule_file = rule_info.get('rule_file')
             if not rule_file or not rule_file.exists():
-                log_callback("规则文件不存在")
+                if log_callback:
+                    log_callback("规则文件不存在")
                 return False
             
-            log_callback(f"开始执行清理规则: {rule_info['Name']}")
+            if log_callback:
+                log_callback(f"开始执行清理规则: {rule_info['Name']}")
             
             with open(rule_file, 'r', encoding='utf-8') as f:
                 rules = f.readlines()
+            
+            total_rules = len([line for line in rules if line.strip() and not line.strip().startswith('#')])
+            current_rule = 0
             
             for line in rules:
                 line = line.strip()
@@ -275,6 +280,12 @@ class CleanToolsCore:
                     continue
                     
                 try:
+                    current_rule += 1
+                    progress = int((current_rule / total_rules) * 100) if total_rules > 0 else 0
+                    
+                    if progress_callback:
+                        progress_callback(progress, "🧹 清理中", f"处理规则 {current_rule}/{total_rules}")
+                    
                     if line.startswith('cl '):
                         # 清理路径
                         path = line[3:].strip()
@@ -284,13 +295,12 @@ class CleanToolsCore:
                         command = line[7:].strip()
                         self.execute_system_command(command, log_callback)
                     else:
-                        log_callback(f"未知规则格式: {line}")
+                        if log_callback:
+                            log_callback(f"未知规则格式: {line}")
                         
-                        # 在处理文件时调用进度回调
-                        if progress_callback:
-                            progress_callback(current_progress)
                 except Exception as e:
-                    log_callback(f"执行规则失败 '{line}': {str(e)}")
+                    if log_callback:
+                        log_callback(f"执行规则失败 '{line}': {str(e)}")
             
             return True
             
@@ -306,7 +316,8 @@ class CleanToolsCore:
             if path_obj.exists():
                 if path_obj.is_file():
                     path_obj.unlink()
-                    log_callback(f"已删除文件: {path}")
+                    if log_callback:
+                        log_callback(f"已删除文件: {path}")
                 elif path_obj.is_dir():
                     # 删除目录中的所有文件，但保留目录结构
                     for item in path_obj.rglob('*'):
@@ -315,29 +326,37 @@ class CleanToolsCore:
                                 item.unlink()
                             except:
                                 pass
-                    log_callback(f"已清理目录: {path}")
+                    if log_callback:
+                        log_callback(f"已清理目录: {path}")
             else:
-                log_callback(f"路径不存在: {path}")
+                if log_callback:
+                    log_callback(f"路径不存在: {path}")
         except Exception as e:
-            log_callback(f"清理路径失败 {path}: {str(e)}")
+            if log_callback:
+                log_callback(f"清理路径失败 {path}: {str(e)}")
     
     def execute_system_command(self, command, log_callback):
         """执行系统命令"""
         try:
-            log_callback(f"执行命令: {command}")
+            if log_callback:
+                log_callback(f"执行命令: {command}")
             result = subprocess.run(command, shell=True, capture_output=True, text=True, timeout=30)
             if result.returncode == 0:
-                log_callback(f"命令执行成功")
-                if result.stdout:
-                    log_callback(f"输出: {result.stdout.strip()}")
+                if log_callback:
+                    log_callback(f"命令执行成功")
+                    if result.stdout:
+                        log_callback(f"输出: {result.stdout.strip()}")
             else:
-                log_callback(f"命令执行失败，返回码: {result.returncode}")
-                if result.stderr:
-                    log_callback(f"错误: {result.stderr.strip()}")
+                if log_callback:
+                    log_callback(f"命令执行失败，返回码: {result.returncode}")
+                    if result.stderr:
+                        log_callback(f"错误: {result.stderr.strip()}")
         except subprocess.TimeoutExpired:
-            log_callback(f"命令执行超时: {command}")
+            if log_callback:
+                log_callback(f"命令执行超时: {command}")
         except Exception as e:
-            log_callback(f"执行命令失败 {command}: {str(e)}")
+            if log_callback:
+                log_callback(f"执行命令失败 {command}: {str(e)}")
     
     def clear_logs(self):
         """清理日志"""
@@ -358,3 +377,62 @@ class CleanToolsCore:
                 f.write(message)
         except:
             pass
+    
+    def get_pagefile_info(self):
+        """获取页面文件信息"""
+        try:
+            result = subprocess.run(
+                'wmic pagefile list /format:list',
+                shell=True, capture_output=True, text=True, timeout=10
+            )
+            if result.returncode == 0:
+                return result.stdout
+            return "无法获取页面文件信息"
+        except Exception as e:
+            return f"获取页面文件信息失败: {str(e)}"
+    
+    def set_pagefile(self, drive, initial_size, max_size, system_managed=False):
+        """设置页面文件"""
+        try:
+            if system_managed:
+                # 启用系统管理的页面文件
+                command = f'wmic pagefileset where name="{drive}:\\pagefile.sys" set InitialSize=0,MaximumSize=0'
+            else:
+                # 设置自定义大小
+                command = f'wmic pagefileset where name="{drive}:\\pagefile.sys" set InitialSize={initial_size},MaximumSize={max_size}'
+            
+            result = subprocess.run(command, shell=True, capture_output=True, text=True, timeout=10)
+            return result.returncode == 0, result.stderr if result.returncode != 0 else "设置成功"
+        except Exception as e:
+            return False, str(e)
+    
+    def disable_pagefile(self, drive):
+        """禁用页面文件"""
+        try:
+            command = f'wmic pagefileset where name="{drive}:\\pagefile.sys" delete'
+            result = subprocess.run(command, shell=True, capture_output=True, text=True, timeout=10)
+            return result.returncode == 0, result.stderr if result.returncode != 0 else "禁用成功"
+        except Exception as e:
+            return False, str(e)
+    
+    def get_hibernate_status(self):
+        """获取休眠状态"""
+        try:
+            result = subprocess.run(
+                'powercfg /query SCHEME_CURRENT SUB_SLEEP HIBERNATEIDLE',
+                shell=True, capture_output=True, text=True, timeout=10
+            )
+            if result.returncode == 0:
+                return result.stdout
+            return "无法获取休眠状态"
+        except Exception as e:
+            return f"获取休眠状态失败: {str(e)}"
+    
+    def set_hibernate(self, enable=True):
+        """启用或禁用休眠"""
+        try:
+            command = 'powercfg /hibernate on' if enable else 'powercfg /hibernate off'
+            result = subprocess.run(command, shell=True, capture_output=True, text=True, timeout=10)
+            return result.returncode == 0, result.stderr if result.returncode != 0 else ("休眠已启用" if enable else "休眠已禁用")
+        except Exception as e:
+            return False, str(e)
